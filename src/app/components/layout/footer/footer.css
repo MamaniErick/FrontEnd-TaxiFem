@@ -1,0 +1,145 @@
+.student-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.student-pill:hover {
+  background: rgba(13, 110, 253, 0.1);
+  border-color: #0d6efd;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(13, 110, 253, 0.2);
+}
+
+.lu-badge {
+  background: #0d6efd;
+  color: white;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+.footer-copy {
+  color: rgba(255, 255, 255, 0.75);
+
+  font-size: 0.95rem;
+
+  letter-spacing: 1px;
+
+  padding: 10px 18px;
+
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.06);
+
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+.footer-bottom {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  width: 100%;
+
+  gap: 20px;
+}
+
+/* CONTENEDOR IZQUIERDO */
+
+.integrantes {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  flex: 1;
+}
+
+/* PASTILLAS */
+
+.student-pill {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 10px 14px;
+
+  border-radius: 40px;
+
+  background: rgba(255, 255, 255, 0.06);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  color: white;
+
+  font-size: 0.9rem;
+
+  white-space: nowrap;
+}
+
+/* LU */
+
+.lu-badge {
+  background: #0d6efd;
+
+  padding: 4px 10px;
+
+  border-radius: 20px;
+
+  font-size: 0.8rem;
+
+  color: white;
+}
+
+/* DERECHA */
+
+.footer-copy {
+  white-space: nowrap;
+
+  color: rgba(255, 255, 255, 0.75);
+  margin-right: 90px;
+}
+@media (max-width: 1200px) {
+  .footer-bottom {
+    flex-direction: column;
+
+    gap: 20px;
+
+    text-align: center;
+  }
+
+  .integrantes {
+    flex-wrap: wrap;
+
+    justify-content: center;
+  }
+
+  .footer-copy {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .student-pill {
+    width: 100%;
+
+    justify-content: center;
+  }
+}
