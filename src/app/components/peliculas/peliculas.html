@@ -1,1 +1,19 @@
-<p>peliculas works!</p>
+<div class="container">
+    <div class="row g-4">
+        <div class="col-md-4 mb-4" *ngFor="let pelicula of (peliculas$ | async)">
+            <div class="card bg-dark text-white h-100 px-2 py-4"> 
+                <img [src]="pelicula.image" class="card-img-top" [alt]="pelicula.title">
+                <div class="card-body">
+                    <h5 class="card-title">{{pelicula.title}}</h5>
+                    <p class="card-text">{{pelicula.description}}</p>
+                    <a >Genero: </a>
+                    <div class="mt-2">
+                        <span class="badge bg-danger me-1" *ngFor="let g of pelicula.genre">
+                            {{ g }}
+                        </span>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
