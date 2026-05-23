@@ -1,1 +1,52 @@
-<p>marcas-autos works!</p>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="mb-4 text-center fw-bold">Marcas de Autos</h2>
+            <div class="list-group shadow">
+                <button *ngFor="let marca of marcasAuto" 
+                        type="button" 
+                        class="list-group-item list-group-item-action list-group-item-dark fw-semibold py-3 d-flex justify-content-between align-items-center"
+                        (click)="obtenerModelos(marca.id, marca.name)"
+                        data-bs-toggle="modal" 
+                        data-bs-target="#modelosModal">
+                    {{ marca.name }}
+                    <span class="badge bg-primary rounded-pill">Ver Modelos →</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modelosModal" tabindex="-1" aria-labelledby="modelosModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        
+        <div class="modal-content bg-dark text-white border-secondary shadow" *ngIf="marcaSeleccionadaName">
+         
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title" id="modelosModalLabel">
+                    Modelos de <span class="text-primary fw-bold">{{ marcaSeleccionadaName }}</span>
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModal()"></button>
+            </div>
+            
+            <div class="modal-body">
+                <ul class="list-group list-group-flush" *ngIf="modelos.length > 0">
+                    <li *ngFor="let modelo of modelos" class="list-group-item bg-dark text-white border-secondary">
+                        <i class="text-primary me-2">🚗</i> {{ modelo.name }}
+                    </li>
+                </ul>
+                
+                <p *ngIf="modelos.length === 0" class="text-muted text-center my-3">
+                    No se encontraron modelos registrados o cargando...
+                </p>
+            </div>
+            
+            <div class="modal-footer border-secondary">
+                <button type="button" class="btn btn-primary w-100 fw-semibold" data-bs-dismiss="modal" (click)="cerrarModal()">Entendido / Cerrar</button>
+            </div>
+            
+        </div>
+        
+    </div>
+</div>
