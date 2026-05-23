@@ -1,1 +1,14 @@
-<p>marcas-autos works!</p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="mb-4 text-center fw-bold">Marcas de Autos</h2>
+            <ul class="list-group shadow">
+                <li *ngFor="let marca of marcasAuto "
+                    class="list-group-item bg-primary fw-semibold py-3"
+                    >
+                    <a>{{marca.name}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
