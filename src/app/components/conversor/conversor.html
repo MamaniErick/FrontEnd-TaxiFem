@@ -1,50 +1,43 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-5">
+        <div class="col-md-10 col-lg-8">
             
             <div class="card bg-dark text-white border-secondary shadow-lg rounded-4 p-4">
-                <h2 class="text-center fw-bold mb-4 text-primary">Conversor de Divisas</h2>
-                
+                <h2 class="text-center fw-bold mb-4 text-warning">Conversor de Divisas</h2>
                 <form>
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Cantidad a convertir</label>
                         <input type="number" class="form-control text-dark" [(ngModel)]="cantidad" name="inputCantidad" placeholder="0.00">
                     </div>
-
                     <div class="row g-2 mb-4">
-                        <div class="col-6">
+                        <div class="col-12">
                             <label class="form-label fw-semibold">De:</label>
                             <select class="form-select text-dark" [(ngModel)]="monedaOrigen" name="selOrigen">
                                 <option *ngFor="let m of listaMonedas" [value]="m.codigo">
-                                    {{ m.codigo }} - {{ m.nombre }}
+                                    {{m.codigo}}-{{ m.nombre }}
                                 </option>
                             </select>
                         </div>
-                        
-                        <div class="col-6">
+                        <div class="col-12">
                             <label class="form-label fw-semibold">A:</label>
                             <select class="form-select text-dark" [(ngModel)]="monedaDestino" name="selDestino">
                                 <option *ngFor="let m of listaMonedas" [value]="m.codigo">
-                                    {{ m.codigo }} - {{ m.nombre }}
+                                    {{m.codigo}}-{{ m.nombre }}
                                 </option>
                             </select>
                         </div>
                     </div>
-
-                    <button type="button" (click)="convertirMonto()" class="btn btn-primary w-100 py-2 fw-bold rounded-3 shadow-sm mb-4">
+                    <button type="button" (click)="convertirMonto()" class="btn btn-warning w-100 py-2 fw-bold rounded-3 text-dark mb-3">
                         Convertir
                     </button>
-
-                    <div class="p-3 bg-secondary bg-opacity-25 border border-secondary rounded-3 text-center">
-                        <span class="text-muted d-block small mb-1">Resultado de la Conversión</span>
-                        <h3 class="fw-bold text-success m-0">
+                    <div class="p-3 bg-white bg-opacity-25 border border-secondary rounded-3 text-center">
+                        <span class="text-warning d-block small mb-1">Resultado de la Conversión</span>
+                        <h3 class="fw-bold text-warning m-0">
                             $ {{ resultado | number:'1.2-2' }} <span class="small text-white text-uppercase">{{ monedaDestino }}</span>
                         </h3> 
                     </div>
                 </form>
-
             </div>
-
         </div>
     </div>
 </div>
