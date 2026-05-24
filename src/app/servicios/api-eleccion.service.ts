@@ -12,7 +12,7 @@ export class ApiEleccionService {
   getBase64(text:string):Observable<any>{
     let httpOptions = {
       headers: new HttpHeaders({
-        'x-rapidapi-key': 'db241b6b7bmsh019c06a40db46cfp1c0838jsn188e70e69af9',
+        'x-rapidapi-key': '467348e2a6msh1c4f1879202cacap107aadjsnda74199c8607',
         'x-rapidapi-host': 'qr-generator-api.p.rapidapi.com',
         'Content-Type': 'application/json'
       }),
