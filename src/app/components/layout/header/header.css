@@ -1,9 +1,8 @@
 .navbar{
-    background-color: #141414;
+    background: linear-gradient(to right, #2a5298, #4380a8);
 }
-
 .navbar-brand{
-    color: #ffc107;
+    color: #ffb007;
     padding-bottom: 5px;
 }
 
@@ -12,13 +11,13 @@
 }
 
 .nav-link:hover{
-    color: #1b8cf5;
+    color: #ffffff;
     padding-bottom: 5px;
     transition: all 0.3s ease;
 }
 
 .nav-link.active{
     color: #fff;
-    border-bottom: 2px solid #0d6efd;
+    border-bottom: 2px solid #ffb007;
     padding-bottom: 5xp;
 }

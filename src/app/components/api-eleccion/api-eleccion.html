@@ -1,6 +1,11 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-5">
+        <div class="caja col-12 mb-5 card bg-secondary text-white border-none shadow-lg rounded-1">
+            <h4>La Api a eleccion fue:</h4>
+            <p>API para generar un código QR, preferentemente que retorne como salida un string en formato base-64.</p>
+        </div>
+        
+        <div class="col-md-10 col-lg-8">
             <div class="card bg-dark text-white border-secondary shadow-lg rounded-4 p-4">
                 <h2 class="text-center fw-bold mb-4 text-warning">Generador de Códigos QR</h2>
                 <form>
@@ -12,7 +17,7 @@
                         </button>
                     </div>
                     <div *ngIf="resultado" class="text-center p-3 bg-white rounded-3 mt-2 animate__animated animate__fadeIn">
-                        <span class="text-dark d-block small fw-bold mb-2">Resultado Base64 Exitoso</span>
+                        <span class="text-dark d-block small fw-bold mb-2">Codigo Qr</span>
                         <img [src]="resultado" alt="QR Base64" class="img-fluid mx-auto d-block" style="max-width: 250px;">
                     </div>
                 </form>
