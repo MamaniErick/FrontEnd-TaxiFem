@@ -28,7 +28,7 @@ export class ApiEleccion {
           let base64Limpio = rawResult.replace(/^<img src=['"]/, '').replace(/['"]\s*\/?>$/, '');
           this.resultado = base64Limpio;
           console.log("Base64 extraído:", this.resultado); }
-        this.cdr.detectChanges();
+          this.cdr.detectChanges();
       },
       (error) => {
         console.log(error);
