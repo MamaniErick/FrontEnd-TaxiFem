@@ -1,24 +1,51 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, } from '@angular/core';
 import { PeliculasService } from '../../servicios/peliculas.service';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs'; // 👈 Asegurate de importar esto
 
 @Component({
   selector: 'app-peliculas',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './peliculas.html',
   styleUrl: './peliculas.css',
 })
-export class Peliculas implements OnInit {
-  
-  // Cambiamos la lista por un Observable genérico
-  peliculas$: Observable<any> | undefined; 
+export class Peliculas{
 
-  constructor(private peliculasService: PeliculasService) { }
+  peliculas: any | undefined; 
 
-  ngOnInit(): void {
-    // Le asignamos directamente el flujo de datos del servicio
-    this.peliculas$ = this.peliculasService.getPeliculas();
+  constructor(private peliculasService: PeliculasService,
+    private cdr: ChangeDetectorRef)
+    { this.obtener(); }
+
+  obtener(){
+    this.peliculasService.getPeliculas().subscribe(
+      (result) => {
+        this.peliculas = result;
+        this.cdr.detectChanges();
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
   }
+
+  obtenerColorGenero(genre: string): string {
+  const genero = genre.toLowerCase().trim();
+
+  switch (genero) {
+    case 'action':
+      return 'bg-danger'; 
+    case 'drama':
+      return 'bg-primary'; 
+    case 'comedy':
+      return 'bg-success';
+    case 'horror':
+      return 'bg-pink text-dark'; 
+    case 'sci-fi':
+      return 'bg-info text-dark';
+    case 'adventure':
+      return 'bg-warning text-white';
+    default:
+      return 'bg-secondary';
+  }
+}
 }
