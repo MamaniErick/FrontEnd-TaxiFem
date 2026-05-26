@@ -8,6 +8,7 @@ import { ApiEleccion } from './components/api-eleccion/api-eleccion';
 import { TextAudio } from './components/text-audio/text-audio';
 import { AudioTexto } from './components/audio-texto/audio-texto';
 import { FomulaUno } from './components/fomula-uno/fomula-uno';
+import { Pelis } from './components/pelis/pelis';
 
 
 export const routes: Routes = [
@@ -20,5 +21,6 @@ export const routes: Routes = [
     { path: 'texto', component: TextAudio },
     { path: 'carrera', component: FomulaUno},
     { path: 'url', component: AudioTexto },
+    { path: 'pelis', component: Pelis },
     { path: '**', redirectTo: '' } // 👈 Si escriben cualquier fruta, los manda al Home
 ];
