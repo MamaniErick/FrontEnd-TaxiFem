@@ -1,0 +1,99 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <form>
+                <div class="col-10">
+                    <label for="anio">Ingrese el Año</label>
+                    <input type="number" class="form-control" name="anio" id="anio" [(ngModel)]="anio">
+                    <button type="button" class="btn btn-primary w-100" (click)="obtenerCarreras()" >Buscar</button>                        
+                    <button type="button" class="btn btn-primary w-100" (click)="obtenerConstructor()">Clasificacion de constructores</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Race ID</th>
+                    <th scope="col">Carrera (race)</th>
+                    <th scope="col">Sesiones (season)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let race of races; let i = index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>{{race.race_Id}}</td>
+                    <td>{{race.name}}</td>
+                    <td>
+                        <ul>
+                            <li *ngFor="let s of race.sessions">{{s.id}}-Practica s
+                                <div class="d-flex col-12">    
+                                    <button class="btn btn-primary" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#modelosModal" 
+                                            (click)="obtenerSessions(s.id)">
+                                        Ver mas
+                                    </button>
+                                </div> 
+                            </li>
+                        </ul>
+                    </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-12" *ngIf="constructors && constructors.length > 0">
+            <h2 class="m-4 text-warning text-center fw-bold">Clasificacion de constructores</h2>
+            <table class="table text-white">
+                <thead>
+                    <tr>
+                        <th scope="col">Posicion</th>
+                        <th scope="col">Puntos</th>
+                        <th scope="col">Nombre de Equipo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ constructors[0]?.position }}</td>
+                        <td>{{ constructors[0]?.points }}</td>
+                        <td>{{ constructors[0]?.team_name || constructors[0]?.team?.name }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ constructors[constructors.length - 1]?.position }}</td>
+                        <td>{{ constructors[constructors.length - 1]?.points }}</td>
+                        <td>{{ constructors[constructors.length - 1]?.team_name || constructors[constructors.length - 1]?.team?.name }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modelosModal" tabindex="-1" aria-labelledby="modelosModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content bg-dark text-white border-secondary shadow" *ngIf="idSessions">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title" id="modelosModalLabel">
+                    Informacion de <span class="text-warning fw-bold">{{idSessions}}</span>
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModal()"></button>
+            </div>            
+           <div class="modal-body">
+                <ul class="list-group list-group-flush" *ngIf="sessions && sessions.length > 0">
+                    <li *ngFor="let s of sessions" class="list-group-item bg-dark text-white border-secondary">
+                        <i class="text-primary me-2"> -> </i>{{ s.name }} - Posicion: {{ s.position }}
+                    </li>
+                </ul>
+                
+                <p *ngIf="!sessions || sessions.length === 0" class="text-muted text-center my-3">
+                    No se encontraron pilotos registrados para esta sesión.
+                </p>
+            </div>
+            <div class="modal-footer border-secondary">
+                <button type="button" class="btn btn-warning w-100 fw-semibold" data-bs-dismiss="modal" (click)="cerrarModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+

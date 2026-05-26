@@ -7,6 +7,8 @@ import { TextoAudio } from './components/texto-audio/texto-audio';
 import { ApiEleccion } from './components/api-eleccion/api-eleccion';
 import { TextAudio } from './components/text-audio/text-audio';
 import { AudioTexto } from './components/audio-texto/audio-texto';
+import { FomulaUno } from './components/fomula-uno/fomula-uno';
+
 
 export const routes: Routes = [
     { path: '', component: Home }, // 👈 Al entrar a http://localhost:4200/ carga el Home directo
@@ -16,6 +18,7 @@ export const routes: Routes = [
     { path: 'texto-audio', component: TextoAudio },
     { path: 'api-eleccion', component: ApiEleccion },
     { path: 'texto', component: TextAudio },
+    { path: 'carrera', component: FomulaUno},
     { path: 'url', component: AudioTexto },
     { path: '**', redirectTo: '' } // 👈 Si escriben cualquier fruta, los manda al Home
 ];
