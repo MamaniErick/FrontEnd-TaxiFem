@@ -9,10 +9,11 @@ import { TextAudio } from './components/text-audio/text-audio';
 import { AudioTexto } from './components/audio-texto/audio-texto';
 import { FomulaUno } from './components/fomula-uno/fomula-uno';
 import { Pelis } from './components/pelis/pelis';
+import { RecetasComponent } from './components/recetas.component/recetas.component';
 
 
 export const routes: Routes = [
-    { path: '', component: Home }, // 👈 Al entrar a http://localhost:4200/ carga el Home directo
+    { path: '', component: Home },
     { path: 'peliculas', component: Peliculas },
     { path: 'marcas-autos', component: MarcasAutos },
     { path: 'conversor', component: Conversor },
@@ -22,5 +23,6 @@ export const routes: Routes = [
     { path: 'carrera', component: FomulaUno},
     { path: 'url', component: AudioTexto },
     { path: 'pelis', component: Pelis },
-    { path: '**', redirectTo: '' } // 👈 Si escriben cualquier fruta, los manda al Home
+    { path: 'recetas', component: RecetasComponent },
+    { path: '**', redirectTo: '' } 
 ];

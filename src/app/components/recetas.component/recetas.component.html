@@ -1,0 +1,184 @@
+<div class="container mt-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <h2 class="mb-4 text-center fw-bold text-white">Buscador de Recetas</h2>
+            
+            <form class="bkg-dar p-4 rounded shadow border border-secondary mb-4">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label text-white">Ingrese Nombre de la Receta:</label>
+                    <input type="text" class="form-control bg-secondary text-white border-0" id="nombre" name="nombre" [(ngModel)]="nombre" placeholder="Ej: pizza, cake...">
+                </div>
+                <button class="btn btn-primary w-100 fw-bold" type="submit" (click)="obtenerRecetas()">Buscar</button>
+            </form>
+
+            <div class="col-12" *ngIf="recetas && recetas.length > 0">
+                <h2 class="m-4 text-warning text-center fw-bold">LISTADO DE RECETAS</h2>
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped align-middle border border-secondary shadow">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Descripción (Inglés)</th>
+                                <th scope="col">Ingredientes</th>
+                                <th scope="col">Imagen</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let r of recetas">
+                                <td class="fw-bold">{{ r.name }}</td>
+                                <td class="text-white" style="max-width: 250px;">{{ r.description }}</td>
+                                <td>
+                                    <ul class="list-group list-group-flush rounded">
+                                        <li class="list-group-item bg-dark text-white-50 py-1" *ngFor="let i of r.ingredients">
+                                            • {{ i.name }}
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <img [src]="r.image" class="rounded shadow-sm" [alt]="r.name" style="width: 80px; height: 80px; object-fit: cover;">
+                                    <img [src]="r.image" 
+                                        class="rounded shadow-sm" 
+                                        [alt]="r.name" 
+                                        style="width: 80px; height: 80px; object-fit: cover;"
+                                        onerror="this.src='https://placehold.co/80x80?text=Sin+Foto'">
+                                </td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm fw-semibold" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#modelosModal" 
+                                            (click)="obtenerTraduccion(r.description, r.name)">
+                                        Traducir
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modelosModal" tabindex="-1" aria-labelledby="modelosModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content bg-dark text-white border-secondary shadow">
+            
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title text-warning" id="modelosModalLabel">
+                    Traducción de: <span class="text-white fw-bold">{{ tituloReceta }}</span>
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModal()"></button>
+            </div>            
+            
+            <div class="modal-body fs-5 lh-base">
+                <div *ngIf="texto; else cargando">
+                    {{ texto }}
+                </div>
+                <ng-template #cargando>
+                    <p class="text-muted text-center my-3">Cargando traducción...</p>
+                </ng-template>
+            </div>
+            
+            <div class="modal-footer border-secondary">
+                <button type="button" class="btn btn-secondary w-100 fw-semibold" data-bs-dismiss="modal" (click)="cerrarModal()">Cerrar</button>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+    <div class="row g-4">
+        <div class="col-12">
+            <h2 class="mb-4 text-center f-w-bold ">Recetas</h2>
+            <form>
+                <label for="nombre">Ingrese Nombre: </label>
+                <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="nombre">
+                <button class="btn btn-primary" type="submit" name="nombre" id="nombre" (click)="obtenerRecetas()">Buscar</button>
+            </form>
+            <div class="col-12" *ngIf="recetas && recetas.length > 0">
+                <h2 class="m-4 text-warning text-center fw-bold">LISTADO</h2>
+                <table class="table text-white">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">Ingredientes</th>
+                            <th scope="col">Imagen</th>
+                            <th scope="col">Detalle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let r of recetas">
+                            <td>{{ r.name}}</td>
+                            <td>{{ r.description}}</td>
+                            <td>>
+                                <div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item" *ngFor="let i of r.ingredients">
+                                            {{i.name}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="contenedor-img">
+                                    <img [src]="r.image" 
+                                        class="card-img-top rounded" 
+                                        [alt]="r.name">
+                                </div>
+                            </td>
+                            <td>
+                                <!--<button class="btn btn-primary" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#modelosModal" (click)="obtenerTraduccion(r.description)">
+                                    Traducir
+                            </button>--></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modelosModal" tabindex="-1" aria-labelledby="modelosModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content bg-dark text-white border-secondary shadow" *ngIf="texto">
+            
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title" id="modelosModalLabel">
+                    Informacion de <span class="text-warning fw-bold">{{texto}}</span>
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModal()"></button>
+            </div>            
+            
+            <div class="modal-body">
+                <div>
+                    {{texto}}
+                </div>
+                </div>
+                <p *ngIf="!texto" class="text-muted text-center my-3">
+                    No se encontraron peliculas registrados para ese Nombre.
+                </p>
+            </div>
+            
+            <div class="modal-footer border-secondary">
+                <button type="button" class="btn btn-warning w-100 fw-semibold" data-bs-dismiss="modal" (click)="cerrarModal()">Cerrar</button>
+            </div>
+            
+        </div>
+</div>
