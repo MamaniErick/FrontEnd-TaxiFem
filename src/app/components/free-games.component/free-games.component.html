@@ -1,0 +1,121 @@
+<div class="row">
+  <div class="col-md-10">
+    <h2>JUEGOS GRATIS</h2>
+    <div class="col-3">
+        <form >
+        <label for="categorias">Categoría:</label>
+
+        <select
+        class="form-select"
+        id="categorias"
+        [(ngModel)]="categoriaSeleccionada"
+        name="categoria">
+        
+        <option value="">Seleccione una categoría</option>
+
+        <option *ngFor="let c of categorias" [value]="c">
+            {{ c }}
+        </option>
+        </select>
+        <button
+        type="button"
+        class="btn btn-primary mt-2"
+        (click)="obtenerPorCategorias(categoriaSeleccionada)">
+        Buscar
+        </button>
+    </form>
+    </div>
+     <div class="col-12" *ngIf="gamesCat && gamesCat.length > 0">
+        <h2 class="m-4 text-warning text-center fw-bold">LISTADO DE Juegos</h2>
+        <div class="table-responsive">
+            <table class="table table-dark table-striped align-middle border border-secondary shadow">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Plataforma</th>
+                        <th scope="col">Desarrollador</th>
+                        <th scope="col">Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let g of gamesCat; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ g.title }}</td>
+                        <td>{{ g.platform }}</td>
+                        <td>{{ g.developer }}</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm fw-semibold" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#modelosModal" 
+                                    (click)="obtenerDetalles(g.id, g.title)"
+                                    >
+                                Ver Requerimientos
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="modelosModal" tabindex="-1" aria-labelledby="modelosModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content bg-dark text-white border-secondary shadow">
+            
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title text-warning" id="modelosModalLabel">
+                    Requerimientos Técnicos de <span class="text-white fw-bold">{{ titulos }}</span>
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModal()"></button>
+            </div>            
+            
+            <div class="modal-body fs-6 lh-base">
+                <div *ngIf="titulos; else cargando">
+                    
+                    <div *ngIf="gamesDetalle; else vacio">
+                        <div class="table-responsive">
+                            <table class="table table-dark table-striped align-middle border border-secondary shadow">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Sistema Operativo (OS)</th>
+                                        <th scope="col">Procesador</th>
+                                        <th scope="col">Gráfica</th>
+                                        <th scope="col">Memoria RAM</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ gamesDetalle?.os }}</td>
+                                        <td>{{ gamesDetalle?.processor }}</td>
+                                        <td>{{ gamesDetalle?.graphics }}</td>
+                                        <td>{{ gamesDetalle?.memory }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <ng-template #vacio>
+                        <div class="alert alert-warning text-center my-2" role="alert">
+                            Este juego no posee requerimientos mínimos de sistema registrados o se ejecuta directamente desde el navegador.
+                        </div>
+                    </ng-template>
+                    
+                </div>
+                
+                <ng-template #cargando>
+                    <p class="text-muted text-center my-3">Cargando Detalles...</p>
+                </ng-template>
+            </div>
+            
+            <div class="modal-footer border-secondary">
+                <button type="button" class="btn btn-secondary w-100 fw-semibold" data-bs-dismiss="modal" (click)="cerrarModal()">Cerrar</button>
+            </div>
+            
+        </div>
+    </div>
+</div>
