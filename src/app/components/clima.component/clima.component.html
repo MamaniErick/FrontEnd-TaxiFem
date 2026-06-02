@@ -1,0 +1,179 @@
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      
+      <div class="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-3 mb-4">
+        <h2 class="fw-bold text-primary m-0">Clima Mundial</h2>
+        
+        <form class="d-flex align-items-end gap-2 flex-wrap">
+          <div>
+            <label for="ciudad" class="form-label fw-semibold mb-1">Ciudad:</label>
+            <input type="text" name="ciudad" id="ciudad" class="form-control" [(ngModel)]="ciu" placeholder="Ej: Jujuy, London..." style="min-width: 200px;">
+          </div>
+          <button type="button" class="btn btn-primary fw-semibold" (click)="obtenerClima()">
+            Buscar Clima
+          </button>
+        </form>
+      </div>
+
+      <div *ngIf="historial.length > 0">
+        <h3 class="my-4 text-secondary text-center fw-bold">PRONÓSTICO HISTÓRICO</h3>
+        <div class="table-responsive shadow-sm rounded border">
+          <table class="table table-hover table-striped align-middle m-0">
+            <thead class="table-light border-bottom">
+              <tr>
+                <th scope="col" class="py-3">#</th>
+                <th scope="col" class="py-3">Ciudad</th>
+                <th scope="col" class="py-3">País</th>
+                <th scope="col" class="py-3">Temp. Actual</th>
+                <th scope="col" class="py-3">Condición</th>
+                <th scope="col" class="py-3">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let c of historial; let i = index">
+                <td class="fw-bold">{{ i + 1 }}</td>
+                <td>{{ c.location?.name }}</td>
+                <td>{{ c.location?.country }}</td>
+                <td class="fw-bold text-dark">{{ c.current?.temp_c }} °C</td>
+                <td><span class="badge bg-secondary bg-opacity-10 text-secondary border px-2 py-1.5">{{ c.current?.condition?.text }}</span></td>
+                <td>
+                  <button class="btn btn-warning btn-sm fw-semibold shadow-sm" 
+                          data-bs-toggle="modal" 
+                          data-bs-target="#modelosModal" 
+                          (click)="seleccionarCiudad(c)">
+                    Ver Pronóstico Extendido
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modelosModal" tabindex="-1" aria-labelledby="modelosModalLabel">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 shadow-lg">
+        
+      <div class="modal-header bg-light">
+        <h5 class="modal-title text-primary fw-bold" id="modelosModalLabel">
+          Pronóstico Extendido de: <span class="text-dark">{{ ciudadSeleccionada?.location?.name }}</span>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModal()"></button>
+      </div>            
+        
+      <div class="modal-body bg-light bg-opacity-25 p-4">
+        <div *ngIf="ciudadSeleccionada; else cargando">
+          
+          <div *ngIf="ciudadSeleccionada?.forecast?.forecastday; else vacio">
+            <div class="row row-cols-1 row-cols-md-3 g-3">
+              
+              <div class="col" *ngFor="let d of ciudadSeleccionada.forecast.forecastday">
+                <div class="card h-100 border-secondary border-opacity-25 shadow-sm text-center">
+                  <div class="card-header bg-white fw-bold text-secondary border-bottom border-opacity-10 py-3">
+                    {{ d?.date }}
+                  </div>
+                  <div class="card-body d-flex flex-column justify-content-center">
+                    <div class="mb-2">
+                      <span class="text-muted small d-block">Máxima</span>
+                      <span class="fs-4 fw-bold text-danger">{{ d?.day?.maxtemp_c }} °C</span>
+                    </div>
+                    <div class="mb-3">
+                      <span class="text-muted small d-block">Mínima</span>
+                      <span class="fs-5 fw-bold text-primary">{{ d?.day?.mintemp_c }} °C</span>
+                    </div>
+                    <div class="mt-auto border-top border-opacity-10 pt-2">
+                      <span class="text-muted small d-block mb-1">Lluvia</span>
+                      <span class="badge bg-info text-dark fw-bold px-3 py-1.5 rounded-pill">
+                        {{ d?.day?.daily_chance_of_rain }} %
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <ng-template #vacio>
+            <div class="alert alert-warning text-center m-0" role="alert">
+              Esta ciudad no posee registros de pronóstico.
+            </div>
+          </ng-template>
+            
+        </div>
+
+        <ng-template #cargando>
+          <p class="text-muted text-center m-0 py-3">Esperando selección de ciudad...</p>
+        </ng-template>
+      </div>
+        
+      <div class="modal-footer bg-light">
+        <button type="button" class="btn btn-secondary w-100 fw-semibold" data-bs-dismiss="modal" (click)="cerrarModal()">Cerrar</button>
+      </div>
+        
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modelosModal2" tabindex="-1" aria-labelledby="modelosModalLabel">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content bg-dark text-white border-secondary shadow">
+        
+      <div class="modal-header border-secondary">
+        <h5 class="modal-title text-warning" id="modelosModalLabel">
+          Pronóstico Extendido de: <span class="text-white fw-bold">{{ ciudadSeleccionada?.location?.name }}</span>
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModal()"></button>
+      </div>            
+        
+      <div class="modal-body fs-6 lh-base">
+        <div *ngIf="ciudadSeleccionada; else cargando">
+          
+          <div *ngIf="ciudadSeleccionada?.forecast?.forecastday; else vacio">
+            <div class="table-responsive">
+              <table class="table table-dark table-striped align-middle border border-secondary shadow">
+                <thead>
+                  <tr>
+                    <th scope="col">La Fecha</th>
+                    <th scope="col">Temp. Máxima</th>
+                    <th scope="col">Temp. Mínima</th>
+                    <th scope="col">Probabilidad de Lluvia</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let d of ciudadSeleccionada.forecast.forecastday">
+                    <td>{{ d?.date }}</td>
+                    <td>{{ d?.day?.maxtemp_c }} °C</td>
+                    <td>{{ d?.day?.mintemp_c }} °C</td>
+                    <td class="text-info fw-bold">{{ d?.day?.daily_chance_of_rain }} %</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <ng-template #vacio>
+            <div class="alert alert-warning text-center my-2" role="alert">
+              Esta ciudad no posee registros de pronóstico.
+            </div>
+          </ng-template>
+            
+        </div>
+
+        <ng-template #cargando>
+          <p class="text-muted text-center my-3">Esperando selección de ciudad...</p>
+        </ng-template>
+      </div>
+        
+      <div class="modal-footer border-secondary">
+        <button type="button" class="btn btn-secondary w-100 fw-semibold" data-bs-dismiss="modal" (click)="cerrarModal()">Cerrar</button>
+      </div>
+        
+    </div>
+  </div>
+</div>

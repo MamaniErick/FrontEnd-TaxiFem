@@ -11,6 +11,7 @@ import { FomulaUno } from './components/fomula-uno/fomula-uno';
 import { Pelis } from './components/pelis/pelis';
 import { RecetasComponent } from './components/recetas.component/recetas.component';
 import { FreeGamesComponent } from './components/free-games.component/free-games.component';
+import { ClimaComponent } from './components/clima.component/clima.component';
 
 
 export const routes: Routes = [
@@ -26,5 +27,6 @@ export const routes: Routes = [
     { path: 'pelis', component: Pelis },
     { path: 'recetas', component: RecetasComponent },
     { path: 'games', component: FreeGamesComponent },
+    { path: 'climas', component:  ClimaComponent},
     { path: '**', redirectTo: '' } 
 ];
