@@ -13,6 +13,7 @@ import { RecetasComponent } from './components/recetas.component/recetas.compone
 import { FreeGamesComponent } from './components/free-games.component/free-games.component';
 import { ClimaComponent } from './components/clima.component/clima.component';
 import { VueloComponent } from './components/vuelo.component/vuelo.component';
+import { RecupComponent } from './components/recup.component/recup.component';
 
 
 export const routes: Routes = [
@@ -30,5 +31,6 @@ export const routes: Routes = [
     { path: 'games', component: FreeGamesComponent },
     { path: 'climas', component:  ClimaComponent},
     { path: 'vuelo', component:  VueloComponent},
+    { path: 'recuperatorio', component:  RecupComponent},
     { path: '**', redirectTo: '' } 
 ];
