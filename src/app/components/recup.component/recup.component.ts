@@ -11,18 +11,23 @@ import { RecupService } from '../../servicios/recup.service';
 })
 export class RecupComponent {
 
-  aux: string = "";
   array: any[]=[];
+  anio: number = 0;
+  cod: any[]=[];
+  codigoPais: string = ""; 
+  detalles: any;
+  pais= "";
 
-  constructor(private recupService: RecupService, private cdr : ChangeDetectorRef){}
+  constructor(private recupService: RecupService, private cdr : ChangeDetectorRef){
+    this.obtenerCod();
+  }
 
 
-
-  obtener() {
-    this.recupService.getTranscribir(this.aux).subscribe(
+  obtenerCod() {
+    this.recupService.getCod().subscribe(
       (result) => {
         console.log("Resultado de la API:", result);
-        this.aux = "";
+        this.cod = result;
         this.cdr.detectChanges();
       },
       (error) => {
@@ -31,29 +36,29 @@ export class RecupComponent {
     );
   }
 
-  clik(){
-
-  }
-
-  
-  obtenerTraduccion(descripcionIngles: string){
-    
-    this.aux = "Traduciendo..."; 
-    
-    this.recupService.postTraducir(descripcionIngles).subscribe(
+  obtenerDias() {
+    this.recupService.getCountry(this.codigoPais, this.anio).subscribe(
       (result) => {
-        console.log("Respuesta Traductor:", result);
+        console.log("Resultado de la API:", result);
+        this.array = result;
         this.cdr.detectChanges();
       },
       (error) => {
         console.log(error);
-        this.cdr.detectChanges();
       }
     );
   }
 
-  cerrarModal() {
-    this.aux = "";
-    this.cdr.detectChanges();
+  obtenerDeetalles() {
+    this.recupService.getDetail(this.codigoPais).subscribe(
+      (result) => {
+        console.log("Resultado de la API:", result);
+        this.detalles = result;
+        this.cdr.detectChanges();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }
