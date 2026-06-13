@@ -14,6 +14,8 @@ import { FreeGamesComponent } from './components/free-games.component/free-games
 import { ClimaComponent } from './components/clima.component/clima.component';
 import { VueloComponent } from './components/vuelo.component/vuelo.component';
 import { RecupComponent } from './components/recup.component/recup.component';
+import { SectorList } from './components/sector-list/sector-list';
+import { SectorForm } from './components/sector-form/sector-form';
 
 
 export const routes: Routes = [
@@ -32,5 +34,8 @@ export const routes: Routes = [
     { path: 'climas', component:  ClimaComponent},
     { path: 'vuelo', component:  VueloComponent},
     { path: 'recuperatorio', component:  RecupComponent},
+    { path: 'sector', component:  SectorList},
+    { path: 'sector', component:  SectorList},
+    { path: 'sector-form/:id', component:  SectorForm},
     { path: '**', redirectTo: '' } 
 ];
